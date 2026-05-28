@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>東洋占術 AI統合鑑定</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:radial-gradient(ellipse at 15% 0%,#1e0838,#0c0520 40%,#050210);color:#e8d5a3;font-family:'Noto Serif JP',serif}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes sh{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes sp{to{transform:rotate(360deg)}}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes tw{from{opacity:.05}to{opacity:.9}}
+.gd{background:linear-gradient(90deg,#b8924a,#e8c96a,#f5e08a,#d4a344,#b8924a);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:sh 4s linear infinite}
+.sk{background:linear-gradient(90deg,#5ab0d0,#87ceeb,#5ab0d0);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:sh 4s linear infinite 2s}
+.ro{background:linear-gradient(90deg,#c07090,#d4a8c0,#c07090);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:sh 4s linear infinite .5s}
+.pv{background:linear-gradient(90deg,#8040c0,#c080ff,#a060d0,#8040c0);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:sh 4s linear infinite}
+.tl{background:linear-gradient(90deg,#20a0b0,#60d0e0,#20a0b0);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:sh 4s linear infinite 1s}
+.gn{background:linear-gradient(90deg,#40a060,#7ae0a0,#40a060);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:sh 4s linear infinite .5s}
+#stars{position:fixed;inset:0;pointer-events:none;z-index:0}
+.star{position:absolute;border-radius:50%;background:#fff}
+.wrap{position:relative;z-index:1;max-width:700px;margin:0 auto;padding:0 16px 80px}
+.card{background:rgba(12,6,22,.92);border:1px solid rgba(200,160,80,.22);border-radius:20px;padding:22px;margin-bottom:14px;backdrop-filter:blur(14px)}
+.card-glow{border-color:rgba(200,160,80,.5)!important;box-shadow:0 0 30px rgba(200,160,80,.2)}
+.card-green{background:rgba(4,20,12,.95);border:1px solid rgba(100,200,130,.3);border-radius:20px;padding:22px;margin-bottom:14px;backdrop-filter:blur(14px)}
+.card-green-glow{border-color:rgba(100,200,130,.55)!important;box-shadow:0 0 30px rgba(100,200,130,.2)}
+.card-blue{background:rgba(4,16,20,.95);border:1px solid rgba(80,180,200,.3);border-radius:20px;padding:22px;margin-bottom:14px;backdrop-filter:blur(14px)}
+.card-blue-glow{border-color:rgba(80,180,200,.55)!important;box-shadow:0 0 30px rgba(80,180,200,.2)}
+.card-purple{background:rgba(8,4,18,.95);border:1px solid rgba(180,120,255,.3);border-radius:20px;padding:22px;margin-bottom:14px;backdrop-filter:blur(14px)}
+.card-purple-glow{border-color:rgba(180,120,255,.6)!important;box-shadow:0 0 40px rgba(180,120,255,.25)}
+.menu-card{border-radius:20px;padding:20px;margin-bottom:13px;cursor:pointer;border:1px solid;transition:transform .2s;backdrop-filter:blur(14px)}
+.menu-card:hover{transform:translateY(-3px)}
+.pill{display:inline-block;background:rgba(200,160,80,.12);border:1px solid rgba(200,160,80,.35);border-radius:999px;padding:5px 13px;font-size:12px;margin:3px;color:#e8c96a}
+.gpill{display:inline-block;background:rgba(100,200,130,.12);border:1px solid rgba(100,200,130,.35);border-radius:999px;padding:5px 13px;font-size:12px;margin:3px;color:#7ae0a0}
+.bpill{display:inline-block;background:rgba(80,180,200,.12);border:1px solid rgba(80,180,200,.35);border-radius:999px;padding:5px 13px;font-size:12px;margin:3px;color:#60d0e0}
+.ppill{display:inline-block;background:rgba(180,120,255,.12);border:1px solid rgba(180,120,255,.35);border-radius:999px;padding:5px 13px;font-size:12px;margin:3px;color:#c080ff}
+.sb{background:rgba(200,160,80,.05);border:1px solid rgba(200,160,80,.18);border-radius:12px;padding:14px}
+.gsb{background:rgba(100,200,130,.05);border:1px solid rgba(100,200,130,.18);border-radius:12px;padding:14px}
+.bsb{background:rgba(80,180,200,.05);border:1px solid rgba(80,180,200,.18);border-radius:12px;padding:14px}
+.psb{background:rgba(180,120,255,.05);border:1px solid rgba(180,120,255,.18);border-radius:12px;padding:14px}
+.pblock{background:rgba(180,120,255,.05);border:1px solid rgba(180,120,255,.2);border-radius:14px;padding:18px;margin-bottom:12px;white-space:pre-line;font-size:14px;line-height:2.2;color:#d8c0ff}
+.inp{display:block;width:100%;padding:13px 16px;background:rgba(20,10,40,.95);border:1px solid rgba(200,160,80,.45);border-radius:10px;color:#e8d5a3;font-size:16px;font-family:inherit;outline:none;-webkit-appearance:none}
+.txa{display:block;width:100%;min-height:110px;padding:13px 16px;background:rgba(20,10,40,.95);border:2px solid rgba(200,160,80,.55);border-radius:10px;color:#fff8e8;font-size:16px;font-family:inherit;line-height:1.9;outline:none;resize:vertical;-webkit-appearance:none}
+.lb{display:block;font-size:11px;color:#c8a050;margin-bottom:6px;letter-spacing:2px}
+.bm{width:100%;padding:16px;background:linear-gradient(135deg,#c8a050,#e8c96a,#d4a344);border:none;border-radius:999px;font-size:16px;font-weight:900;color:#0a0514;cursor:pointer;font-family:inherit;letter-spacing:3px;margin-top:14px}
+.gbm{width:100%;padding:16px;background:linear-gradient(135deg,#106030,#7ae0a0,#209050);border:none;border-radius:999px;font-size:16px;font-weight:900;color:#e0fff0;cursor:pointer;font-family:inherit;letter-spacing:3px;margin-top:14px}
+.bbm{width:100%;padding:16px;background:linear-gradient(135deg,#106080,#60d0e0,#2090a0);border:none;border-radius:999px;font-size:16px;font-weight:900;color:#e0f8ff;cursor:pointer;font-family:inherit;letter-spacing:3px;margin-top:14px}
+.pbm{width:100%;padding:16px;background:linear-gradient(135deg,#6020b0,#c080ff,#8040d0);border:none;border-radius:999px;font-size:16px;font-weight:900;color:#f0e8ff;cursor:pointer;font-family:inherit;letter-spacing:3px;margin-top:14px}
+.bs{width:100%;padding:12px;background:transparent;border:1px solid rgba(200,160,80,.3);border-radius:999px;font-size:13px;color:#c8a050;cursor:pointer;font-family:inherit;margin-top:8px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.err{color:#e07a7a;font-size:13px;text-align:center;margin-top:10px}
+.dv{display:flex;align-items:center;gap:10px;margin:14px 0;color:rgba(200,160,80,.3);font-size:11px;letter-spacing:3px}
+.dv::before,.dv::after{content:'';flex:1;height:1px;background:rgba(200,160,80,.2)}
+.fortune-ring{width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto}
+.spinner{width:56px;height:56px;border-radius:50%;margin:0 auto 22px;animation:sp 1s linear infinite}
+@media(max-width:600px){.g2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<div class="wrap">
+<header style="text-align:center;padding:40px 16px 20px">
+  <div style="font-size:10px;letter-spacing:7px;color:#5a3f20;margin-bottom:12px">TOYO ORACLE · 東洋占術 AI 統合鑑定</div>
+  <h1 style="font-size:clamp(17px,4vw,26px);font-weight:900;letter-spacing:2px;line-height:1.6">
+    <span class="gd">紫微斗数</span> <span style="color:rgba(200,160,80,.3)">×</span> <span class="sk">奇門遁甲</span> <span style="color:rgba(200,160,80,.3)">×</span> <span class="ro">梅花心易</span>
+  </h1>
+</header>
+<div id="app"></div>
+</div>
+<script>
+(function(){
+  const el=document.getElementById('stars');
+  let x=99991;const r=()=>{x=(x*1664525+1013904223)&0xffffffff;return(x>>>0)/4294967296;};
+  for(let i=0;i<65;i++){const s=document.createElement('div');s.className='star';const sz=r()>.85?2:1;s.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+r()*100+'%;top:'+r()*100+'%;opacity:'+(0.1+r()*.7)+';animation:tw '+(2+r()*3)+'s ease-in-out infinite alternate;animation-delay:'+r()*5+'s';el.appendChild(s);}
+})();
+const WUXING={木:{gen:"火",ctrl:"土"},火:{gen:"土",ctrl:"金"},土:{gen:"金",ctrl:"水"},金:{gen:"水",ctrl:"木"},水:{gen:"木",ctrl:"火"}};
+const ZS=["紫微","天機","太陽","武曲","天同","廉貞","天府","太陰","貪狼","巨門","天相","天梁","七殺","破軍"];
+const PA=["命宮","兄弟宮","夫妻宮","子女宮","財帛宮","疾厄宮","遷移宮","奴僕宮","官禄宮","田宅宮","福徳宮","父母宮"];
+const TG=["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+const DZ=["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+const EL=["木","火","土","金","水"],BR=["廟","旺","得地","平和","落陷"];
+const BA=["休門","死門","傷門","杜門","景門","驚門","開門","生門"];
+const JX=["天蓬","天芮","天冲","天輔","天禽","天心","天柱","天任","天英"];
+const JS=["値符","騰蛇","太陰","六合","白虎","玄武","九地","九天"];
+const G9=["坎一宮","坤二宮","震三宮","巽四宮","中五宮","乾六宮","兌七宮","艮八宮","離九宮"];
+const DR=["北","南西","東","南東","中央","北西","西","北東","南"];
+const JI=["大吉","吉","中平","小吉","大凶","中平","小吉","大吉","吉"];
+const TR=[{name:"乾",el:"金"},{name:"兌",el:"金"},{name:"離",el:"火"},{name:"震",el:"木"},{name:"巽",el:"木"},{name:"坎",el:"水"},{name:"艮",el:"土"},{name:"坤",el:"土"}];
+const THEMES=["総合運","仕事・事業運","金運・財運","恋愛・結婚運","健康・生活運","人間関係","未来予測・転機"];
+const FSTY={大吉:{c:"#ffd700",g:"rgba(255,215,0,.4)"},吉:{c:"#7ae0a0",g:"rgba(122,224,160,.4)"},中平:{c:"#87ceeb",g:"rgba(135,206,235,.3)"},注意:{c:"#ffaa55",g:"rgba(255,170,85,.4)"},要慎重:{c:"#ff7777",g:"rgba(255,119,119,.4)"}};
+function calcZ(y,m,d,h){const ys=TG[(y-4)%10],yb=DZ[(y-4)%12],base=(y+m+d+h)&0x7fffffff,mi=(m+Math.floor(h/2))%12,ps=PA.map((_,i)=>({main:ZS[(base+i*3)%14],el:EL[(base+i*2)%5],br:BR[(base+i*7)%5]}));return{ys,yb,ming:ps[mi],cai:ps[(mi+4)%12],guan:ps[(mi+8)%12]};}
+function calcQ(y,m,d,h){const base=(y+m+d)%9,hI=Math.floor(h/2)%8,gI=(base+hI)%9;return{gong:G9[base],gate:BA[hI],star:JX[gI],shen:JS[hI],ji:JI[(base+hI)%9],dir:DR[hI]};}
+function calcM(y,m,d,h,mn){const up=TR[(y+m+d)%8],lo=TR[(y+m+d+h)%8],line=(y+m+d+h+mn)%6+1,even=h%2===0,ti=even?up:lo,yu=even?lo:up,r=WUXING[yu.el];let rel;if(r.gen===ti.el)rel={type:"生体",desc:"大吉"};else if(WUXING[ti.el].ctrl===yu.el)rel={type:"体剋用",desc:"半吉"};else if(WUXING[ti.el].gen===yu.el)rel={type:"体生用",desc:"吉"};else if(r.ctrl===ti.el)rel={type:"剋体",desc:"注意"};else rel={type:"比和",desc:"吉"};return{up,lo,line,ti,yu,rel};}
+
+const SYS_DAILY=`あなたは東洋占術の鑑定師です。今日一日の運勢を現代語でまとめてください。全体の70%は温かく前向きな内容で、30%は「正直に言うと」「ここは気をつけて」という率直な注意点を必ず入れてください。必ずJSON形式のみで返答:
+{"overall":"総合運2〜3文。うち1文は辛口の注意点","work":"仕事運1〜2文。改善すべき点も正直に","love":"恋愛運1〜2文。耳が痛いことも含めて","money":"金運1文。甘い見通しを戒める言葉も","health":"健康運1文","lucky_color":"色名","lucky_direction":"方角","fortune_level":"大吉か吉か中平か注意か要慎重","word":"今日の一言20字以内"}`;
+const SYS_MEIMEI=`あなたは東洋占術（紫微斗数・奇門遁甲・梅花心易）の鑑定師です。現代的でわかりやすい言葉で鑑定してください。全体の70%は温かく共感的、30%は率直で辛口の視点を入れてください。「正直に言うと」「ここだけは見直してほしい」など愛ある本音を伝えてください。必ずJSON形式のみで返答:
+{"ziwei":"紫微斗数3〜4文。うち1文は命宮が陥りやすい課題を率直に","qimen":"奇門遁甲3〜4文。やってはいけないことも明記","meihua":"梅花心易3〜4文。卦が示すリスクも正直に","integrated":"三術統合5〜7文。相談に答えながら現実的な課題も","fortune_level":"大吉か吉か中平か注意か要慎重","key_message":"核心の一言25字以内","action":"今すぐできるアクション1つ（やめるべきことでも可）"}`;
+const SYS_MONTHLY=`あなたは東洋占術の大師です。温かく現代的な日本語でしっかりとした鑑定をしてください。全体の70〜75%は前向きで温かい内容、25〜30%は率直で辛口の視点を含めてください。「本当のことを言います」「ここだけは変えないと」など愛ある厳しい言葉が人の背中を押します。必ずJSON形式のみで返答:
+{"ziwei":"紫微斗数180字以上。命宮の課題・陥りやすいパターンも率直に","qimen":"奇門遁甲180字以上。警告すべき点も","meihua":"梅花心易180字以上。注意点・リスクも明確に","integrated":"三術統合深層鑑定400字以上。うち100字以上は率直な課題指摘・改善点を愛を持って","fortune_level":"大吉か吉か中平か注意か要慎重","key_message":"核心の一言28字以内","action":"開運行動3つ箇条書き。うち1つは今すぐやめるべきこと"}`;
+const SYS_PREMIUM=`あなたは東洋占術の最高峰の大師です。プレミアム特別鑑定です。深く詩的で具体的な現代語で魂に響く長文の鑑定書を作成してください。全体の70%は温かく深い内容、30%は率直で辛口の本音を入れてください。「星は嘘をつきません」「本当のことを言います」など愛ある厳しい言葉を要所に入れてください。必ずJSON形式のみで返答:
+{"soul":"天命の読み解き350字以上。才能と同時に魂の課題・克服すべき弱点も率直に","past":"過去の流れ300字以上。繰り返しているパターンや手放すべき執着も指摘","present":"現在の状況300字以上。耳が痛い現実も愛を持って伝える","future":"未来の展望350字以上。明るい未来とそのために変えなければならないことを具体的に","action":"行動指針300字以上。今すぐやめるべきことも含む","message":"特別メッセージ250字以上。甘やかしではなく本当に大切なことを伝える言葉で","fortune_level":"大吉か吉か中平か注意か要慎重","key_message":"核心の一言30字以内"}`;
+
+function getSys(s){if(s==='daily')return SYS_DAILY;if(s==='meimei')return SYS_MEIMEI;if(s==='monthly')return SYS_MONTHLY;return SYS_PREMIUM;}
+function fallback(svc,f,z,q,mh){
+  if(svc==='daily')return{overall:"今日の運気は「"+q.ji+"」。"+q.gate+"が開き"+q.star+"があなたを照らします。正直に言うと、今日は気が散りやすいので大切な決断は避けた方が賢明です。",work:q.dir+"方向からの縁が吉。ただし先週のやり残しに正直に向き合う日でもあります。",love:"素直な一言が鍵。ただし感情任せの発言には注意してください。",money:"小さな積み重ねが吉。衝動買いは今日は特に避けて。",health:"水分補給を忘れずに。",lucky_color:["赤","黄","青","白","緑","金","紫"][new Date().getDay()%7],lucky_direction:q.dir+"方",fortune_level:q.ji==="大吉"?"大吉":q.ji==="吉"?"吉":"中平",word:"焦りが最大の敵"};
+  if(svc==='meimei')return{ziwei:"命宮「"+z.ming.main+"」は"+z.ming.br+"の状態。本来の才能が開花しやすい時期です。ただし正直に言うと、その才能を自己中心的に使う傾向があれば今すぐ見直してください。",qimen:"「"+q.gate+"」の流れは"+q.ji+"。"+q.dir+"方向が吉ですが、焦って動くと逆効果になる点に注意。",meihua:mh.up.name+mh.lo.name+"卦の体用は「"+mh.rel.type+"」。変化の兆しがありますが、準備不足のまま突き進むのは危険です。",integrated:"三術が示すのは「今が動き時」です。「"+f.question+"」については、まず自分の中の焦りを手放すことが先決。周囲に合わせすぎている習慣があれば、それも見直し時です。",fortune_level:"吉",key_message:"動く前に自分の動機を問え",action:q.dir+"方向への行動を今日中に一つ起こす"};
+  if(svc==='monthly')return{ziwei:"命宮「"+z.ming.main+"」の輝きが増す時期です。あなたの才能が周囲に認められやすくなっています。ただし本当のことを言うと、その才能を磨くための努力を怠ってきた部分があるなら、今すぐ正面から向き合ってください。",qimen:"「"+q.gate+"」の時盤は"+q.ji+"の流れ。"+q.dir+"方向へのアクションが吉です。しかしここだけは言わせてください——行動力はあるのに詰めが甘くて成果を取りこぼすパターンが続いているなら、今回こそ最後まで走り切ることを意識してください。",meihua:mh.up.name+mh.lo.name+"卦。体用の関係は「"+mh.rel.type+"」で"+mh.rel.desc+"の状態です。変化の好機ですが、感情的な判断が落とし穴になりやすい時期でもあります。冷静さを保つことが最重要です。",integrated:"三術が一致して伝えるのは「今が動き時」ということ。「"+f.question+"」については答えはすでに見えているはずです。ただし星は警告します——同じ失敗を繰り返さないために、今回は行動する前に「なぜ以前うまくいかなかったか」を正直に振り返ってください。",fortune_level:"吉",key_message:"同じ失敗を繰り返すな、今回こそ",action:"①"+q.dir+"方向を意識して今日の意図を宣言する\n②過去の失敗パターンを紙に書き出して手放す\n③今すぐやめること：言い訳と先延ばし"};
+  return{soul:"命宮「"+z.ming.main+"」が示す天命——あなたには特別な才能と使命があります。しかし星は正直に語ります。その才能を「まだ準備ができていない」と言い訳にして眠らせてきた時間はありませんか。\n\n天は準備が整うのを待ちません。今がその時です。",past:"奇門遁甲「"+q.gong+"」の配置はこれまでの歩みに意味があることを示しています。ただし正直に言います——繰り返してきた「もう少し準備してから」という思考パターン、それがあなたの最大のブレーキでした。その執着を今日手放してください。",present:"現在は重要な岐路に立っています。「"+f.question+"」について星はこう告げます——答えは出ています。ただあなたがそれを認めることを恐れているだけです。\n\n今のまま変わらなければ、3年後も同じ場所にいます。",future:"▶ 短期（3〜6ヶ月）\n"+q.dir+"方向への行動が鍵。明確な目標を持って動くこと。\n\n▶ 中期（6ヶ月〜2年）\n「"+z.ming.main+"」の才能が本格開花。怠けると再び眠ります。\n\n▶ 長期（2年以降）\n今の選択が将来を決定します。",action:"①今すぐやめること：「まだ準備が整っていない」という言い訳\n②今週中に：長年後回しにしてきた課題に向き合う\n③今月中に："+q.dir+"方向への具体的な行動を一つ起こす\n④継続：毎日10分、自分の本音と向き合う時間を作る",message:"あなたへ正直に伝えます。\n\n星があなたを見て感じるのは「もったいない」という言葉です。持っているものを活かしきれていない。怖くて動けないでいる。その気持ちはわかります。でも恐れから逃げ続けた先に、後悔だけが残ります。\n\n恐れず、しかし謙虚に。一歩踏み出してください。",fortune_level:"吉",key_message:"持っているものを活かしきれていない"};}
+
+let STATE={screen:'menu',svc:'daily',step:'input',result:null,loadMsg:'',err:''};
+function set(s){Object.assign(STATE,s);render();}
+function render(){
+  const app=document.getElementById('app');
+  if(STATE.screen==='menu')app.innerHTML=renderMenu();
+  else if(STATE.step==='input')app.innerHTML=renderInput();
+  else if(STATE.step==='loading')app.innerHTML=renderLoading();
+  else if(STATE.step==='result'&&STATE.result)app.innerHTML=renderResult();
+  bindEvents();
+}
+function renderMenu(){
+  return`
+  <div class="menu-card" style="background:rgba(4,16,20,.95);border-color:rgba(80,180,200,.35)" data-action="start" data-svc="daily">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="font-size:32px;animation:fl 2.5s ease infinite">🌅</div>
+      <div style="flex:1">
+        <div class="tl" style="font-size:17px;font-weight:900;letter-spacing:3px">毎日の運勢</div>
+        <div style="font-size:12px;color:#2080a0;margin-top:4px">生年月日のみでOK · シンプル明快な今日の運勢</div>
+        <div style="margin-top:10px"><span class="bpill">今日の吉凶</span><span class="bpill">ラッキー方位</span><span class="bpill">ラッキーカラー</span><span class="bpill">今日の一言</span></div>
+      </div>
+      <div style="font-size:20px;color:rgba(80,180,200,.4)">›</div>
+    </div>
+  </div>
+  <div class="menu-card" style="background:rgba(12,6,22,.92);border-color:rgba(200,160,80,.35)" data-action="start" data-svc="meimei">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="font-size:32px;animation:fl 3s ease infinite">🔯</div>
+      <div style="flex:1">
+        <div class="gd" style="font-size:17px;font-weight:900;letter-spacing:3px">運命透視鑑定</div>
+        <div style="font-size:12px;color:#806030;margin-top:4px">三術それぞれ＋統合鑑定 · コンパクトな深み</div>
+        <div style="margin-top:10px"><span class="pill">紫微斗数</span><span class="pill">奇門遁甲</span><span class="pill">梅花心易</span><span class="pill">統合鑑定</span><span class="pill">開運行動</span></div>
+      </div>
+      <div style="font-size:20px;color:rgba(200,160,80,.4)">›</div>
+    </div>
+  </div>
+  <div class="menu-card" style="background:rgba(4,20,12,.95);border-color:rgba(100,200,130,.35)" data-action="start" data-svc="monthly">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="font-size:32px;animation:fl 3.5s ease infinite">🌙</div>
+      <div style="flex:1">
+        <div class="gn" style="font-size:17px;font-weight:900;letter-spacing:3px">月額サービス</div>
+        <div style="font-size:12px;color:#306040;margin-top:4px">三術詳細＋深層統合鑑定 · しっかりした長文鑑定</div>
+        <div style="margin-top:10px"><span class="gpill">命盤詳細</span><span class="gpill">時運分析</span><span class="gpill">卦象解読</span><span class="gpill">深層統合</span><span class="gpill">具体的行動指針</span></div>
+      </div>
+      <div style="font-size:20px;color:rgba(100,200,130,.4)">›</div>
+    </div>
+  </div>
+  <div class="menu-card" style="background:rgba(8,4,18,.95);border-color:rgba(180,120,255,.35)" data-action="start" data-svc="premium">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="font-size:32px;animation:fl 2s ease infinite">👑</div>
+      <div style="flex:1">
+        <div class="pv" style="font-size:17px;font-weight:900;letter-spacing:3px">プレミアム特別鑑定</div>
+        <div style="font-size:12px;color:#7050a0;margin-top:4px">天命 · 魂の使命 · 過去現在未来 · 6章構成の最長鑑定書</div>
+        <div style="margin-top:10px"><span class="ppill">天命読み解き</span><span class="ppill">過去の意味</span><span class="ppill">現在の課題</span><span class="ppill">未来3段階</span><span class="ppill">特別メッセージ</span></div>
+      </div>
+      <div style="font-size:20px;color:rgba(180,120,255,.4)">›</div>
+    </div>
+  </div>`;
+}
+function renderInput(){
+  const map={daily:{t:"毎日の運勢",icon:"🌅",cc:"card-blue card-blue-glow",bm:"bbm",txt:"tl"},meimei:{t:"運命透視鑑定",icon:"🔯",cc:"card card-glow",bm:"bm",txt:"gd"},monthly:{t:"月額サービス",icon:"🌙",cc:"card-green card-green-glow",bm:"gbm",txt:"gn"},premium:{t:"プレミアム特別鑑定",icon:"👑",cc:"card-purple card-purple-glow",bm:"pbm",txt:"pv"}};
+  const s=map[STATE.svc];
+  const thOpts=["総合運","仕事・事業運","金運・財運","恋愛・結婚運","健康・生活運","人間関係","未来予測・転機"].map(t=>`<option>${t}</option>`).join('');
+  const today=(()=>{const n=new Date(),d=["日","月","火","水","木","金","土"][n.getDay()];return n.getFullYear()+"年"+(n.getMonth()+1)+"月"+n.getDate()+"日（"+d+"曜）";})();
+  return`<div class="${s.cc}">
+    <div style="text-align:center;margin-bottom:18px"><div style="font-size:28px;animation:fl 2s ease infinite">${s.icon}</div>
+    <div class="${s.txt}" style="font-size:16px;font-weight:900;letter-spacing:4px;margin-top:8px">${s.t}</div></div>
+    ${STATE.svc==='daily'?`<div style="text-align:center;font-size:13px;color:#407090;margin-bottom:14px">${today}</div>
+    <label class="lb">生年月日 <span style="color:#e07a7a">*</span></label><input class="inp" id="bd" type="date">`
+    :`<div class="g2"><div><label class="lb">お名前</label><input class="inp" id="nm" placeholder="山田 太郎"></div>
+    <div><label class="lb">性別</label><select class="inp" id="gd"><option value="">未選択</option><option>男性</option><option>女性</option><option>その他</option></select></div></div>
+    <div class="g2" style="margin-top:12px"><div><label class="lb">生年月日 <span style="color:#e07a7a">*</span></label><input class="inp" id="bd" type="date"></div>
+    <div><label class="lb">出生時間</label><input class="inp" id="bt" type="time" value="12:00"></div></div>
+    <div style="margin-top:12px"><label class="lb">出生地</label><input class="inp" id="bp" placeholder="東京・大阪・京都など"></div>
+    <div style="margin-top:12px"><label class="lb">相談テーマ</label><select class="inp" id="th">${thOpts}</select></div>
+    <div style="margin-top:14px"><label class="lb">相談内容 <span style="color:#e07a7a">*</span></label>
+    <textarea class="txa" id="q" placeholder="${STATE.svc==='premium'?'あなたが今最も深く向き合いたいテーマを書いてください':'今一番知りたいことを書いてください'}"></textarea></div>`}
+    ${STATE.err?`<div class="err">${STATE.err}</div>`:''}
+    <button class="${s.bm}" data-action="submit">${s.icon} ${s.t}を開始する</button>
+    <button class="bs" data-action="menu">← メニューに戻る</button></div>`;
+}
+function renderLoading(){
+  const cols={daily:"#60d0e0",meimei:"#c8a050",monthly:"#7ae0a0",premium:"#c080ff"};
+  const cc={daily:"card-blue",meimei:"card",monthly:"card-green",premium:"card-purple"};
+  const txts={daily:"tl",meimei:"gd",monthly:"gn",premium:"pv"};
+  return`<div class="${cc[STATE.svc]}" style="text-align:center;padding:70px 24px">
+    <div class="spinner" style="border:2px solid rgba(200,160,80,.2);border-top-color:${cols[STATE.svc]}"></div>
+    <div class="${txts[STATE.svc]}" style="font-size:17px;letter-spacing:4px;margin-bottom:14px">鑑定中</div>
+    <div style="font-size:13px;color:#8a6d3b;animation:pu 1.6s ease infinite">${STATE.loadMsg}</div></div>`;
+}
+function renderResult(){
+  const r=STATE.result,ai=r.ai,flv=ai.fortune_level||ai.fortune||"吉",fs=FSTY[flv]||FSTY["吉"];
+  const acc={daily:"#60d0e0",meimei:"#e8c96a",monthly:"#7ae0a0",premium:"#c080ff"}[r.svc];
+  const cc={daily:"card-blue card-blue-glow",meimei:"card card-glow",monthly:"card-green card-green-glow",premium:"card-purple card-purple-glow"}[r.svc];
+  const btn={daily:"bbm",meimei:"bm",monthly:"gbm",premium:"pbm"}[r.svc];
+  let body='';
+  if(r.svc==='daily'){
+    body=`${[{t:"🌟 今日の総合天運",k:"overall",cl:"bsb",tc:"#c0e8f0"},{t:"💼 仕事運",k:"work",cl:"bsb",tc:"#c0e8f0"},{t:"💕 恋愛運",k:"love",cl:"bsb",tc:"#c0e8f0"},{t:"💰 金運",k:"money",cl:"bsb",tc:"#c0e8f0"},{t:"🌿 健康運",k:"health",cl:"bsb",tc:"#c0e8f0"}].map(s=>`<div class="card-blue"><div style="font-size:13px;color:#60d0e0;font-weight:bold;margin-bottom:8px">${s.t}</div><div class="${s.cl}"><p style="font-size:14px;line-height:2;color:${s.tc}">${ai[s.k]||''}</p></div></div>`).join('')}
+    <div class="card-blue card-blue-glow"><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    ${[{l:"🎨 ラッキーカラー",v:ai.lucky_color||''},{l:"🧭 吉方位",v:ai.lucky_direction||''}].map(i=>`<div style="background:rgba(80,180,200,.08);border:1px solid rgba(80,180,200,.2);border-radius:10px;padding:12px;text-align:center"><div style="font-size:10px;color:#406080;margin-bottom:4px">${i.l}</div><div style="font-size:14px;color:#60d0e0;font-weight:bold">${i.v}</div></div>`).join('')}</div></div>
+    <button class="bbm" data-action="menu">← メニューに戻る</button>`;
+  }else if(r.svc==='meimei'){
+    body=`${[{t:"★ 紫微斗数",k:"ziwei"},{t:"⊕ 奇門遁甲",k:"qimen"},{t:"✿ 梅花心易",k:"meihua"}].map(s=>`<div class="card"><div class="gd" style="font-size:14px;font-weight:bold;letter-spacing:3px;margin-bottom:10px">${s.t}</div><div class="sb"><p style="font-size:14px;line-height:2;color:#d4b88a">${ai[s.k]||''}</p></div></div>`).join('')}
+    <div class="card card-glow"><div class="gd" style="font-size:15px;font-weight:bold;letter-spacing:4px;text-align:center;margin-bottom:12px">三術統合 深層鑑定</div>
+    <div class="sb" style="margin-bottom:12px"><p style="font-size:14px;line-height:2.2;color:#e0c890">${ai.integrated||''}</p></div>
+    <div style="background:rgba(200,160,80,.1);border-radius:10px;padding:12px 16px"><div style="font-size:10px;color:#8a6d3b;letter-spacing:3px;margin-bottom:6px">今すぐできること</div><div style="font-size:13px;color:#e8c96a">${ai.action||''}</div></div></div>
+    <button class="bm" data-action="menu">← メニューに戻る</button>`;
+  }else if(r.svc==='monthly'){
+    body=`${[{t:"★ 紫微斗数",k:"ziwei"},{t:"⊕ 奇門遁甲",k:"qimen"},{t:"✿ 梅花心易",k:"meihua"}].map(s=>`<div class="card-green"><div class="gn" style="font-size:14px;font-weight:bold;letter-spacing:3px;margin-bottom:10px">${s.t}</div><div class="gsb"><p style="font-size:14px;line-height:2.1;color:#c0e8d0">${ai[s.k]||''}</p></div></div>`).join('')}
+    <div class="card-green card-green-glow"><div class="gn" style="font-size:16px;font-weight:bold;letter-spacing:4px;text-align:center;margin-bottom:14px">三術統合 深層鑑定</div>
+    <div class="gsb" style="margin-bottom:14px"><p style="font-size:14px;line-height:2.2;color:#d0f0d8">${ai.integrated||''}</p></div>
+    <div style="background:rgba(100,200,130,.1);border-radius:10px;padding:12px 16px"><div style="font-size:10px;color:#406050;letter-spacing:3px;margin-bottom:6px">開運アクション</div><div style="font-size:13px;color:#7ae0a0;white-space:pre-line">${ai.action||''}</div></div></div>
+    <button class="gbm" data-action="menu">← メニューに戻る</button>`;
+  }else{
+    body=`${[{icon:"✨",t:"天命の読み解き",sub:"才能と同時に魂の課題も",k:"soul"},{icon:"🕐",t:"過去の流れ",sub:"繰り返しているパターンを直視",k:"past"},{icon:"🌀",t:"現在の状況",sub:"耳が痛い現実も含めて",k:"present"},{icon:"🌟",t:"未来への展望",sub:"短期・中期・長期の3段階",k:"future"},{icon:"⚡",t:"行動指針",sub:"やめるべきことも含む",k:"action"}].map(s=>`<div class="card-purple"><div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div style="width:36px;height:36px;border-radius:50%;background:rgba(180,120,255,.12);border:1px solid rgba(180,120,255,.3);display:flex;align-items:center;justify-content:center;font-size:18px">${s.icon}</div><div><div class="pv" style="font-size:14px;font-weight:bold;letter-spacing:2px">${s.t}</div><div style="font-size:10px;color:#4a2080;margin-top:2px">${s.sub}</div></div></div><div class="pblock">${(ai[s.k]||'').replace(/\n/g,'<br>')}</div></div>`).join('')}
+    <div class="card-purple card-purple-glow"><div style="text-align:center;margin-bottom:14px"><div style="font-size:26px">💌</div><div class="pv" style="font-size:14px;font-weight:bold;letter-spacing:3px;margin-top:8px">三術師からの特別メッセージ</div></div>
+    <div style="background:rgba(180,120,255,.08);border:1px solid rgba(180,120,255,.25);border-radius:12px;padding:18px;white-space:pre-line;font-size:15px;line-height:2.3;color:#e8d0ff;font-style:italic">${(ai.message||'').replace(/\n/g,'<br>')}</div></div>
+    <button class="pbm" data-action="menu">← メニューに戻る</button>`;}
+  return`<div class="${cc}" style="text-align:center;margin-bottom:14px">
+    <div style="font-size:10px;letter-spacing:5px;color:#6a4a28;margin-bottom:8px">鑑定結果</div>
+    ${r.form.name?`<div style="font-size:13px;color:#b09060;margin-bottom:8px">${r.form.name}さんの鑑定</div>`:''}
+    <div style="font-size:11px;color:#4a3a20;margin-bottom:16px">${r.date}</div>
+    <div class="fortune-ring" style="border:2px solid ${fs.c};box-shadow:0 0 30px ${fs.g}">
+      <div style="font-size:20px;font-weight:900;color:${fs.c};letter-spacing:4px">${flv}</div></div>
+    <div style="font-size:16px;color:${acc};letter-spacing:2px;margin:14px 0 8px;font-style:italic">「${ai.key_message||ai.word||''}」</div>
+  </div>${body}`;}
+function bindEvents(){
+  document.querySelectorAll('[data-action]').forEach(el=>{el.onclick=()=>{const a=el.dataset.action,sv=el.dataset.svc;
+    if(a==='start'){STATE.screen='session';STATE.svc=sv;STATE.step='input';STATE.err='';render();}
+    if(a==='menu'){STATE.screen='menu';STATE.result=null;STATE.err='';render();}
+    if(a==='submit')doSubmit();};});}
+async function doSubmit(){
+  const bd=document.getElementById('bd')?.value||'';
+  const bt=document.getElementById('bt')?.value||'12:00';
+  const nm=document.getElementById('nm')?.value||'';
+  const gd=document.getElementById('gd')?.value||'';
+  const bp=document.getElementById('bp')?.value||'';
+  const th=document.getElementById('th')?.value||'総合運';
+  const q=document.getElementById('q')?.value||'';
+  if(!bd){set({err:'生年月日を入力してください。'});return;}
+  if(STATE.svc!=='daily'&&!q.trim()){set({err:'相談内容を入力してください。'});return;}
+  const form={name:nm,gender:gd,bd,bt,bp,theme:th,question:q};
+  const[by,bm,bday]=bd.split('-').map(Number),bh=parseInt((bt||'12:00').split(':')[0])||12;
+  const now=new Date(),cy=now.getFullYear(),cm=now.getMonth()+1,cd=now.getDate(),ch=now.getHours(),cmn=now.getMinutes();
+  const z=calcZ(by,bm,bday,bh),qm=calcQ(cy,cm,cd,ch),mh=calcM(cy,cm,cd,ch,cmn);
+  const dow=["日","月","火","水","木","金","土"][now.getDay()];
+  const svc=STATE.svc;
+  const prompt=svc==='daily'?cy+"年"+cm+"月"+cd+"日（"+dow+"曜）\n生年月日:"+bd+"\n紫微:年干支:"+z.ys+z.yb+" 命星:"+z.ming.main+"("+z.ming.br+")\n奇門:日門:"+qm.gate+" 日星:"+qm.star+" 吉凶:"+qm.ji+" 吉方:"+qm.dir+"方\n梅花:"+mh.up.name+mh.lo.name+"卦 体用:"+mh.rel.type+"\n今日一日の運勢を三術で鑑定してください。":"【依頼者】"+(nm||"匿名")+" 性別:"+gd+" 生年月日:"+bd+" "+bt+" 出生地:"+bp+" テーマ:"+th+"\n相談:"+q+"\n紫微:年干支:"+z.ys+z.yb+" 命宮:"+z.ming.main+"("+z.ming.br+") 財帛宮:"+z.cai.main+" 官禄宮:"+z.guan.main+"\n奇門:時門:"+qm.gate+" 時星:"+qm.star+" 吉凶:"+qm.ji+" 吉方:"+qm.dir+"方\n梅花:"+mh.up.name+mh.lo.name+"卦 体用:"+mh.rel.type+":"+mh.rel.desc+" 変爻:第"+mh.line+"爻\n三術を統合し鑑定してください。";
+  const maxTok={daily:800,meimei:900,monthly:1600,premium:2200}[svc];
+  const loads={daily:["干支を算出中…","日盤を展開中…","運勢を読み解き中…"],meimei:["命盤を算出中…","時盤を展開中…","三術を統合中…"],monthly:["命盤を精密算出中…","三術を統合中…","鑑定書を作成中…"],premium:["深層を読み解き中…","魂のメッセージを解読中…","特別鑑定書を作成中…"]}[svc];
+  let li=0;set({step:'loading',err:'',loadMsg:loads[0]});
+  const ti=setInterval(()=>{li=(li+1)%loads.length;STATE.loadMsg=loads[li];const el=document.querySelector('[style*="animation:pu"]');if(el)el.textContent=loads[li];},1400);
+  let ai;
+  try{const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:maxTok,system:getSys(svc),messages:[{role:'user',content:prompt}]})});
+  if(res.ok){const data=await res.json();const raw=(data.content||[]).map(b=>b.text||'').join('');try{ai=JSON.parse(raw.replace(/^```json|^```|```$/gm,'').trim());}catch{ai=fallback(svc,form,z,qm,mh);}}else{ai=fallback(svc,form,z,qm,mh);}}catch{ai=fallback(svc,form,z,qm,mh);}
+  clearInterval(ti);
+  set({step:'result',result:{id:Date.now(),date:new Date().toLocaleString('ja-JP'),svc,form,z,qm,mh,ai}});}
+render();
+</script>
+</body>
+</html>
